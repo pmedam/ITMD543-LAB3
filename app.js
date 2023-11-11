@@ -38,4 +38,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// add port number
+const port = 5000;
+app.listen(port, () => {
+  console. log(`Server started on port ${port}`);
+});
+
 module.exports = app;
+
