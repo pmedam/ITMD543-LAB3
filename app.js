@@ -19,8 +19,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+/* GET home page. */
+app.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+const multer  = require('multer')
+const upload = multer({ dest: './public/data/uploads/' })
+app.post('/stats', upload.single('uploaded_file'), function (req, res) {
+  console.log(req.body.nspeakers, "----------------------------------------");
+   // req.file is the name of your file in the form above, here 'uploaded_file'
+   // req.body will hold the text fields, if there were any 
+   res.render('index', { title: req.body.nspeakers });
+   //res.redirect('/')
+   console.log(req.file, req.body)
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
